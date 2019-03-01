@@ -149,7 +149,9 @@ export function submitCompose(routerHistory) {
       // into the columns
 
       const insertIfOnline = timelineId => {
-        if (getState().getIn(['timelines', timelineId, 'items', 0]) !== null) {
+        const timeline = getState().getIn(['timelines', timelineId]);
+
+        if (timeline && timeline.get('items').size > 0 && timeline.getIn(['items', 0]) !== null) {
           dispatch(updateTimeline(timelineId, { ...response.data }));
         }
       };
